@@ -2,25 +2,29 @@ package org.wecancodeit.virtualpetsfullstack;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
 public class VirtualPetShelter {
 
+	@Id
+	@GeneratedValue
+	private long id;
+
 	@OneToMany(mappedBy = "shelter")
 	private Collection<VirtualPet> roster;
 
 	@OneToMany(mappedBy = "shelter")
-	private Collection<Cage> cages;
+	private Collection<Cage> cageList;
 
 	private int foodBowlLevel;
 	private int waterBowlLevel;
 	private int litterBoxLevel;
-	private Map<VirtualPet, Cage> cageList = new HashMap<>();
+	// private Map<VirtualPet, Cage> cageList = new HashMap<>();
 
 	private boolean floorIsDirty;
 	private boolean petIsDead;
@@ -30,9 +34,10 @@ public class VirtualPetShelter {
 
 	public VirtualPetShelter(int litterBoxLevel) {
 		this.litterBoxLevel = litterBoxLevel;
-		// admitNewPet(defaultOrganicDog);
-		// admitNewPet(defaultOrganicCat);
-		// admitNewPet(defaultRobotPet);
+	}
+
+	public long getId() {
+		return id;
 	}
 
 	public int getFoodBowlLevel() {
@@ -45,38 +50,6 @@ public class VirtualPetShelter {
 
 	public int getLitterBoxLevel() {
 		return litterBoxLevel;
-	}
-
-	public boolean checkIfLitterBoxesAreFull() {
-		return litterBoxLevel >= getOrganicCatCount() * 2;
-	}
-
-	public boolean checkIfFloorIsDirty() {
-		return floorIsDirty;
-	}
-
-	public boolean checkIfPetIsDead() {
-		return petIsDead;
-	}
-
-	public void admitNewPet(VirtualPet petInput) {
-		roster.put(petInput.getName(), petInput);
-		if (petInput instanceof Cageable) {
-			cageList.put(petInput, new Cage());
-		}
-	}
-
-	public void admitNewDogWithDirtyCage(VirtualPet petInput, int dirtiness) {
-		roster.put(petInput.getName(), petInput);
-		cageList.put(petInput, new Cage(dirtiness));
-	}
-
-	public boolean checkIfPetExists(String name) {
-		return roster.containsKey(name);
-	}
-
-	public VirtualPet getPet(String name) {
-		return roster.get(name);
 	}
 
 	public Collection<VirtualPet> getAllPets() {
@@ -105,6 +78,18 @@ public class VirtualPetShelter {
 		return robots;
 	}
 
+	public Collection<Cage> getAllCages() {
+		return cageList;
+	}
+
+	public boolean checkIfPetExists(String name) {
+		return roster.containsKey(name);
+	}
+
+	public VirtualPet getPet(String name) {
+		return roster.get(name);
+	}
+
 	public int getOrganicPetCount() {
 		int count = 0;
 		for (VirtualPet i : roster.values()) {
@@ -125,8 +110,28 @@ public class VirtualPetShelter {
 		return count;
 	}
 
-	public Map<VirtualPet, Cage> getAllCages() {
-		return cageList;
+	public boolean checkIfLitterBoxesAreFull() {
+		return litterBoxLevel >= getOrganicCatCount() * 2;
+	}
+
+	public boolean checkIfFloorIsDirty() {
+		return floorIsDirty;
+	}
+
+	public boolean checkIfPetIsDead() {
+		return petIsDead;
+	}
+
+	public void admitNewPet(VirtualPet petInput) {
+		roster.put(petInput.getName(), petInput);
+		if (petInput instanceof Cageable) {
+			cageList.put(petInput, new Cage());
+		}
+	}
+
+	public void admitNewDogWithDirtyCage(VirtualPet petInput, int dirtiness) {
+		roster.put(petInput.getName(), petInput);
+		cageList.put(petInput, new Cage(shelter, pet, dirtiness));
 	}
 
 	public void adoptOutPet(String name) {

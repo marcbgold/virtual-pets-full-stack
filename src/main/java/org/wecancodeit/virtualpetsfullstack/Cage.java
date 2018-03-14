@@ -13,20 +13,38 @@ public class Cage {
 	@Id
 	private long id;
 
+	@ManyToOne
+	VirtualPetShelter shelter;
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@MapsId
 	private VirtualPet pet;
 
-	@ManyToOne
-	VirtualPetShelter shelter;
 	private int wasteLevel;
 
 	public Cage() {
-		this(0);
 	}
 
-	public Cage(int dirtiness) {
+	public Cage(VirtualPetShelter shelter, VirtualPet pet) {
+		this(shelter, pet, 0);
+	}
+
+	public Cage(VirtualPetShelter shelter, VirtualPet pet, int dirtiness) {
+		this.shelter = shelter;
+		this.pet = pet;
 		wasteLevel = dirtiness;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public VirtualPetShelter getShelter() {
+		return shelter;
+	}
+
+	public VirtualPet getPet() {
+		return pet;
 	}
 
 	public int getWasteLevel() {

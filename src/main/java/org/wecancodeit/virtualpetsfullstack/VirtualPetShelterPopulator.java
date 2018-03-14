@@ -1,7 +1,5 @@
 package org.wecancodeit.virtualpetsfullstack;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import org.springframework.boot.CommandLineRunner;
@@ -25,36 +23,17 @@ public class VirtualPetShelterPopulator implements CommandLineRunner {
 
 		String organicDogName = "Crono";
 		String organicDogDescription = "Reddish-orange male mutt with short, spiky fur.  Very friendly and athletic, but you've never heard him bark.  Ever.";
-		OrganicDog defaultOrganicDog = petRepo.save(new OrganicDog(null, organicDogName, organicDogDescription));
+		OrganicDog defaultOrganicDog = petRepo.save(new OrganicDog(shelter, organicDogName, organicDogDescription));
 
 		String organicCatName = "Lara";
 		String organicCatDescription = "Black and gray female tabby.  Extra nimble and slinky.  Inists upon trying to get into every enclosed space she can find.";
-		OrganicCat defaultOrganicCat = petRepo.save(new OrganicCat(shelter, organicCatName, organicCatDescription));
+		petRepo.save(new OrganicCat(shelter, organicCatName, organicCatDescription));
 
 		String robotCatName = "GLaDOS";
 		String robotCatDescription = "Mostly white with large, yellow eyes.  Seems to always be mocking you.  Possibly wants to kill you.  Hates potatoes.";
-		RobotCat defaultRobotPet = petRepo.save(new RobotCat(shelter, robotCatName, robotCatDescription));
+		petRepo.save(new RobotCat(shelter, robotCatName, robotCatDescription));
 
-		Category platformer = shelterRepo.save(new Category("Platformer", "Jump on lots of platforms, and maybe stomp on bad guys or solve some puzzles."));
-
-		Tag snes = cageRepo.save(new Tag("SNES", "Game originally released on Super Nintendo"));
-		Tag psx = cageRepo.save(new Tag("PSX", "Game originally released on Sony Playstation"));
-		Tag pc = cageRepo.save(new Tag("PC", "Game originally released on PC"));
-		Tag twoD = cageRepo.save(new Tag("2D", "Game has 2D graphics"));
-		Tag threeD = cageRepo.save(new Tag("3D", "Game has 3D graphics"));
-		Tag puzzle = cageRepo.save(new Tag("Puzzle", "Game involves puzzle solving"));
-		Tag storyDriven = cageRepo.save(new Tag("Story-Driven", "Game centers around a continuous story"));
-
-		petRepo.save(new Review(rpg, "Chrono Trigger", new Date(), 1995, "Time-hopping shenanigans.", "./images/chrono-trigger.jpg", "Mute, spiky-haired kid",
-				"Saves the world from space monster", "By messing with time", snes, twoD, storyDriven));
-		petRepo.save(new Review(platformer, "Crash Bandicoot", new Date(), 1996, "Rodent thing with pants vs. midget mad scientist.", "./images/crash-bandicoot.jpg",
-				"Running towards the screen", "Falling into unseen holes", "The gamedevs hate you", psx, threeD));
-		petRepo.save(new Review(platformer, "Portal 2", new Date(), 2011, "Free cake.  So delicious and moist.", "./images/portal.jpg", "Here's the test result:",
-				"\"You're a horrible person.\"", "See? That's what it says.", pc, threeD, puzzle, storyDriven));
-		petRepo.save(new Review(platformer, "Super Mario World", new Date(), 1990, "Turtle boss must die. Again.", "./images/super-mario-world.jpg", "Fat Italian guy",
-				"Eats shrooms and murders turtles", "Bowser never learns", snes, twoD));
-		petRepo.save(new Review(rpg, "Undertale", new Date(), 2015, "Kill everybody... or don't.  Up to you.", "./images/undertale.jpg", "Here, I made you this",
-				"Cinnamon-butterscotch pie", "Now be good, won't you?", pc, twoD, puzzle, storyDriven));
+		cageRepo.save(new Cage(shelter, defaultOrganicDog));
 	}
 
 }
