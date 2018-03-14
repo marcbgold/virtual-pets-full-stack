@@ -58,4 +58,22 @@ public class Cage {
 	public void cleanCage() {
 		wasteLevel = 0;
 	}
+
+	@Override
+	public int hashCode() {
+		return ((Long) id).hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+
+		return id == ((Cage) obj).id;
+	}
 }
