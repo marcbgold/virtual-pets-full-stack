@@ -1,10 +1,12 @@
 package org.wecancodeit.virtualpetsfullstack;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+@Entity
 public abstract class VirtualPet {
 
 	@Id
@@ -76,11 +78,6 @@ public abstract class VirtualPet {
 		return name.hashCode() == input.hashCode();
 	}
 
-	@Override
-	public int hashCode() {
-		return name.hashCode();
-	}
-
 	// @Override
 	// public String toString() {
 	// return name + ": " + description;
@@ -97,5 +94,23 @@ public abstract class VirtualPet {
 			namePart = name + " |";
 		}
 		return namePart;
+	}
+
+	@Override
+	public int hashCode() {
+		return ((Long) id).hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+
+		return id == ((VirtualPet) obj).id;
 	}
 }

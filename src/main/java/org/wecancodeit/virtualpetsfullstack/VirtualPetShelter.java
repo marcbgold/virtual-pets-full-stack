@@ -14,6 +14,9 @@ public class VirtualPetShelter {
 	@OneToMany(mappedBy = "shelter")
 	private Collection<VirtualPet> roster;
 
+	@OneToMany(mappedBy = "shelter")
+	private Collection<Cage> cages;
+
 	private final String organicDogName = "Crono";
 	private final String organicDogDescription = "Reddish-orange male mutt with short, spiky fur.  Very friendly and athletic, but you've never heard him bark.  Ever.";
 	private final OrganicDog defaultOrganicDog = new OrganicDog(organicDogName, organicDogDescription);

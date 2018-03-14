@@ -26,7 +26,7 @@ public class VirtualPetsFullStackJpaMappingsTest {
 	private ReviewRepository reviewRepo;
 
 	@Resource
-	private CategoryRepository categoryRepo;
+	private VirtualPetRepository categoryRepo;
 
 	@Resource
 	private TagRepository tagRepo;
