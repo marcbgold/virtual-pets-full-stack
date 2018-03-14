@@ -17,13 +17,13 @@ public class RobotCatTest {
 
 	@Before
 	public void setup() {
-		underTest = new RobotCat(NAME, DESCRIPTION, OIL, HAPPINESS, CHARGE, HEALTH);
+		underTest = new RobotCat(shelter, NAME, DESCRIPTION, OIL, HAPPINESS, CHARGE, HEALTH);
 	}
 
 	@Test
 	public void shouldKeepValuesInBounds() {
-		underTest = new RobotCat(NAME, DESCRIPTION, OIL, 110, 110, 110);
-		RobotCat alsoUnderTest = new RobotCat(NAME, DESCRIPTION, -10, -10, -10, HEALTH);
+		underTest = new RobotCat(shelter, NAME, DESCRIPTION, OIL, 110, 110, 110);
+		RobotCat alsoUnderTest = new RobotCat(shelter, NAME, DESCRIPTION, -10, -10, -10, HEALTH);
 		underTest.keepValuesInBounds();
 		alsoUnderTest.keepValuesInBounds();
 

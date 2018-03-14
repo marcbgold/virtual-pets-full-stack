@@ -8,8 +8,11 @@ public abstract class RobotPet extends VirtualPet {
 	protected int oilLevel;
 	protected int chargeLevel;
 
-	public RobotPet(String name, String description, int oil, int happiness, int charge, int health) {
-		super(name, description, happiness, health);
+	public RobotPet() {
+	}
+
+	public RobotPet(VirtualPetShelter shelter, String name, String description, int oil, int happiness, int charge, int health) {
+		super(shelter, name, description, happiness, health);
 		oilLevel = oil;
 		chargeLevel = charge;
 	}

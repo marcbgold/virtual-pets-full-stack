@@ -23,13 +23,13 @@ public class VirtualPetsFullStackJpaMappingsTest {
 	private TestEntityManager entityManager;
 
 	@Resource
-	private ReviewRepository reviewRepo;
+	private VirtualPetShelterRepository shelterRepo;
 
 	@Resource
-	private VirtualPetRepository categoryRepo;
+	private VirtualPetRepository petRepo;
 
 	@Resource
-	private TagRepository tagRepo;
+	private CageRepository cageRepo;
 
 	private static final Date REV_DATE = new Date();
 	private static final int YEAR_PUB = 2018;

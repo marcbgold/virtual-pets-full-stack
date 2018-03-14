@@ -5,12 +5,15 @@ import javax.persistence.Entity;
 @Entity
 public class OrganicDog extends OrganicPet implements Walkable, Cageable {
 
-	public OrganicDog(String name, String description) {
-		this(name, description, 20, 20, 70, 10, 0, 100);
+	public OrganicDog() {
 	}
 
-	public OrganicDog(String name, String description, int hunger, int thirst, int happiness, int tiredness, int waste, int health) {
-		super(name, description, hunger, thirst, happiness, tiredness, waste, health);
+	public OrganicDog(VirtualPetShelter shelter, String name, String description) {
+		this(shelter, name, description, 20, 20, 70, 10, 0, 100);
+	}
+
+	public OrganicDog(VirtualPetShelter shelter, String name, String description, int hunger, int thirst, int happiness, int tiredness, int waste, int health) {
+		super(shelter, name, description, hunger, thirst, happiness, tiredness, waste, health);
 	}
 
 	@Override

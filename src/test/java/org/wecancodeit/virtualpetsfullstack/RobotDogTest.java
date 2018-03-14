@@ -18,13 +18,13 @@ public class RobotDogTest {
 
 	@Before
 	public void setup() {
-		underTest = new RobotDog(NAME, DESCRIPTION, OIL, HAPPINESS, CHARGE, HEALTH);
+		underTest = new RobotDog(shelter, NAME, DESCRIPTION, OIL, HAPPINESS, CHARGE, HEALTH);
 	}
 
 	@Test
 	public void shouldKeepValuesInBounds() {
-		underTest = new RobotDog(NAME, DESCRIPTION, OIL, 110, 110, 110);
-		RobotDog alsoUnderTest = new RobotDog(NAME, DESCRIPTION, -10, -10, -10, HEALTH);
+		underTest = new RobotDog(shelter, NAME, DESCRIPTION, OIL, 110, 110, 110);
+		RobotDog alsoUnderTest = new RobotDog(shelter, NAME, DESCRIPTION, -10, -10, -10, HEALTH);
 		underTest.keepValuesInBounds();
 		alsoUnderTest.keepValuesInBounds();
 

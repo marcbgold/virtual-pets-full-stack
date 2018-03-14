@@ -10,8 +10,11 @@ public abstract class OrganicPet extends VirtualPet {
 	protected int tirednessLevel;
 	protected int wasteLevel;
 
-	public OrganicPet(String name, String description, int hunger, int thirst, int happiness, int tiredness, int waste, int health) {
-		super(name, description, happiness, health);
+	public OrganicPet() {
+	}
+
+	public OrganicPet(VirtualPetShelter shelter, String name, String description, int hunger, int thirst, int happiness, int tiredness, int waste, int health) {
+		super(shelter, name, description, happiness, health);
 		hungerLevel = hunger;
 		thirstLevel = thirst;
 		tirednessLevel = tiredness;

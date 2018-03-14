@@ -277,16 +277,16 @@ public class VirtualPetsAmokApp {
 
 				switch (typeInput) {
 				case "OD":
-					selectedPet = new OrganicDog(nameInput, descriptionInput);
+					selectedPet = new OrganicDog(null, nameInput, descriptionInput);
 					break;
 				case "OC":
-					selectedPet = new OrganicCat(nameInput, descriptionInput);
+					selectedPet = new OrganicCat(shelter, nameInput, descriptionInput);
 					break;
 				case "RD":
-					selectedPet = new RobotDog(nameInput, descriptionInput);
+					selectedPet = new RobotDog(shelter, nameInput, descriptionInput);
 					break;
 				case "RC":
-					selectedPet = new RobotCat(nameInput, descriptionInput);
+					selectedPet = new RobotCat(shelter, nameInput, descriptionInput);
 					break;
 				}
 

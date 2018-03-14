@@ -22,7 +22,11 @@ public abstract class VirtualPet {
 	protected int happinessLevel;
 	protected int healthLevel;
 
-	public VirtualPet(String name, String description, int happiness, int health) {
+	public VirtualPet() {
+	}
+
+	public VirtualPet(VirtualPetShelter shelter, String name, String description, int happiness, int health) {
+		this.shelter = shelter;
 		this.name = name;
 		this.description = description;
 		happinessLevel = happiness;

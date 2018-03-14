@@ -19,13 +19,13 @@ public class OrganicCatTest {
 
 	@Before
 	public void setup() {
-		underTest = new OrganicCat(NAME, DESCRIPTION, HUNGER, THIRST, HAPPINESS, TIREDNESS, WASTE, HEALTH);
+		underTest = new OrganicCat(shelter, NAME, DESCRIPTION, HUNGER, THIRST, HAPPINESS, TIREDNESS, WASTE, HEALTH);
 	}
 
 	@Test
 	public void shouldKeepValuesInBounds() {
-		underTest = new OrganicCat(NAME, DESCRIPTION, 110, 110, 110, 110, 110, 110);
-		OrganicCat alsoUnderTest = new OrganicCat(NAME, DESCRIPTION, HUNGER, THIRST, -10, TIREDNESS, WASTE, HEALTH);
+		underTest = new OrganicCat(shelter, NAME, DESCRIPTION, 110, 110, 110, 110, 110, 110);
+		OrganicCat alsoUnderTest = new OrganicCat(shelter, NAME, DESCRIPTION, HUNGER, THIRST, -10, TIREDNESS, WASTE, HEALTH);
 		underTest.keepValuesInBounds();
 		alsoUnderTest.keepValuesInBounds();
 

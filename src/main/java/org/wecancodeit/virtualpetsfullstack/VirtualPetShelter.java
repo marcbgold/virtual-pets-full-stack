@@ -17,18 +17,6 @@ public class VirtualPetShelter {
 	@OneToMany(mappedBy = "shelter")
 	private Collection<Cage> cages;
 
-	private final String organicDogName = "Crono";
-	private final String organicDogDescription = "Reddish-orange male mutt with short, spiky fur.  Very friendly and athletic, but you've never heard him bark.  Ever.";
-	private final OrganicDog defaultOrganicDog = new OrganicDog(organicDogName, organicDogDescription);
-
-	private final String organicCatName = "Lara";
-	private final String organicCatDescription = "Black and gray female tabby.  Extra nimble and slinky.  Inists upon trying to get into every enclosed space she can find.";
-	private final OrganicCat defaultOrganicCat = new OrganicCat(organicCatName, organicCatDescription);
-
-	private final String robotCatName = "GLaDOS";
-	private final String robotCatDescription = "Mostly white with large, yellow eyes.  Seems to always be mocking you.  Possibly wants to kill you.  Hates potatoes.";
-	private final RobotCat defaultRobotPet = new RobotCat(robotCatName, robotCatDescription);
-
 	private int foodBowlLevel;
 	private int waterBowlLevel;
 	private int litterBoxLevel;
@@ -38,14 +26,13 @@ public class VirtualPetShelter {
 	private boolean petIsDead;
 
 	public VirtualPetShelter() {
-		this(0);
 	}
 
 	public VirtualPetShelter(int litterBoxLevel) {
 		this.litterBoxLevel = litterBoxLevel;
-		admitNewPet(defaultOrganicDog);
-		admitNewPet(defaultOrganicCat);
-		admitNewPet(defaultRobotPet);
+		// admitNewPet(defaultOrganicDog);
+		// admitNewPet(defaultOrganicCat);
+		// admitNewPet(defaultRobotPet);
 	}
 
 	public int getFoodBowlLevel() {

@@ -21,7 +21,20 @@ public class VirtualPetShelterPopulator implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Category rpg = shelterRepo.save(new Category("RPG", "Pretend to be some dudes, read lots of dialogue, and go save the world or something."));
+		VirtualPetShelter shelter = shelterRepo.save(new VirtualPetShelter());
+
+		String organicDogName = "Crono";
+		String organicDogDescription = "Reddish-orange male mutt with short, spiky fur.  Very friendly and athletic, but you've never heard him bark.  Ever.";
+		OrganicDog defaultOrganicDog = petRepo.save(new OrganicDog(null, organicDogName, organicDogDescription));
+
+		String organicCatName = "Lara";
+		String organicCatDescription = "Black and gray female tabby.  Extra nimble and slinky.  Inists upon trying to get into every enclosed space she can find.";
+		OrganicCat defaultOrganicCat = petRepo.save(new OrganicCat(shelter, organicCatName, organicCatDescription));
+
+		String robotCatName = "GLaDOS";
+		String robotCatDescription = "Mostly white with large, yellow eyes.  Seems to always be mocking you.  Possibly wants to kill you.  Hates potatoes.";
+		RobotCat defaultRobotPet = petRepo.save(new RobotCat(shelter, robotCatName, robotCatDescription));
+
 		Category platformer = shelterRepo.save(new Category("Platformer", "Jump on lots of platforms, and maybe stomp on bad guys or solve some puzzles."));
 
 		Tag snes = cageRepo.save(new Tag("SNES", "Game originally released on Super Nintendo"));
