@@ -13,6 +13,8 @@ public class RobotCatTest {
 	private static final int HAPPINESS = 50;
 	private static final int CHARGE = 50;
 	private static final int HEALTH = 50;
+
+	private VirtualPetShelter shelter;
 	private RobotCat underTest;
 
 	@Before
@@ -22,6 +24,7 @@ public class RobotCatTest {
 
 	@Test
 	public void shouldKeepValuesInBounds() {
+		shelter = new VirtualPetShelter(0);
 		underTest = new RobotCat(shelter, NAME, DESCRIPTION, OIL, 110, 110, 110);
 		RobotCat alsoUnderTest = new RobotCat(shelter, NAME, DESCRIPTION, -10, -10, -10, HEALTH);
 		underTest.keepValuesInBounds();

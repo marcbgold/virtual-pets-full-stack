@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 @Entity
 public class OrganicDog extends OrganicPet implements Walkable, Cageable {
 
+	// @OneToOne(mappedBy = "pet")
+	private Cage cage;
+
 	public OrganicDog() {
 	}
 

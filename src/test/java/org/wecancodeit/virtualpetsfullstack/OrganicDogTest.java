@@ -16,17 +16,20 @@ public class OrganicDogTest {
 	private static final int TIREDNESS = 60;
 	private static final int WASTE = 60;
 	private static final int HEALTH = 60;
+
+	private VirtualPetShelter shelter;
 	private OrganicDog underTest;
 
 	@Before
 	public void setup() {
-		underTest = new OrganicDog(NAME, DESCRIPTION, HUNGER, THIRST, HAPPINESS, TIREDNESS, WASTE, HEALTH);
+		shelter = new VirtualPetShelter(0);
+		underTest = new OrganicDog(shelter, NAME, DESCRIPTION, HUNGER, THIRST, HAPPINESS, TIREDNESS, WASTE, HEALTH);
 	}
 
 	@Test
 	public void shouldKeepValuesInBounds() {
-		underTest = new OrganicDog(NAME, DESCRIPTION, 110, 110, 110, 110, 110, 110);
-		OrganicDog alsoUnderTest = new OrganicDog(NAME, DESCRIPTION, HUNGER, THIRST, -10, TIREDNESS, WASTE, HEALTH);
+		underTest = new OrganicDog(shelter, NAME, DESCRIPTION, 110, 110, 110, 110, 110, 110);
+		OrganicDog alsoUnderTest = new OrganicDog(shelter, NAME, DESCRIPTION, HUNGER, THIRST, -10, TIREDNESS, WASTE, HEALTH);
 		underTest.keepValuesInBounds();
 		alsoUnderTest.keepValuesInBounds();
 

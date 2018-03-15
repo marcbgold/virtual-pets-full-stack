@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 public class Cage {
 
 	@Id
+	// @GeneratedValue
 	private long id;
 
 	@ManyToOne

@@ -55,7 +55,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void shouldPlayWithBothOrganicAndRobotPets() {
-		RobotCat extraRobotPet = new RobotCat(shelter, "robot", "");
+		RobotCat extraRobotPet = new RobotCat(underTest, "robot", "");
 		underTest.admitNewPet(extraRobotPet);
 		String organicResult = underTest.playWithPet(NAME);
 		String robotResult = underTest.playWithPet("robot");
@@ -66,7 +66,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void petShouldRefuseToPlayWhenTooUnhealthy() {
-		OrganicDog tooUnHealthy = new OrganicDog("too unhealthy", "", 50, 50, 50, 50, 50, 10);
+		OrganicDog tooUnHealthy = new OrganicDog(underTest, "too unhealthy", "", 50, 50, 50, 50, 50, 10);
 		underTest.admitNewPet(tooUnHealthy);
 
 		String tooSickResult = underTest.playWithPet("too unhealthy");
@@ -76,7 +76,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void organicPetShouldRefuseToPlayWhenTooHungry() {
-		OrganicDog tooHungry = new OrganicDog("too hungry", "", 100, 50, 50, 50, 50, 50);
+		OrganicDog tooHungry = new OrganicDog(underTest, "too hungry", "", 100, 50, 50, 50, 50, 50);
 		underTest.admitNewPet(tooHungry);
 
 		String tooHungryResult = underTest.playWithPet("too hungry");
@@ -86,7 +86,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void organicPetShouldRefuseToPlayWhenTooTired() {
-		OrganicCat tooTired = new OrganicCat(shelter, "too tired", "", 50, 50, 50, 100, 50, 50);
+		OrganicCat tooTired = new OrganicCat(underTest, "too tired", "", 50, 50, 50, 100, 50, 50);
 		underTest.admitNewPet(tooTired);
 
 		String tooTiredResult = underTest.playWithPet("too tired");
@@ -96,7 +96,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void robotPetShouldRefuseToPlayWhenOilTooLow() {
-		RobotDog oilTooLow = new RobotDog(shelter, "oil too low", "", 10, 50, 50, 50);
+		RobotDog oilTooLow = new RobotDog(underTest, "oil too low", "", 10, 50, 50, 50);
 		underTest.admitNewPet(oilTooLow);
 
 		String oilTooLowResult = underTest.playWithPet("oil too low");
@@ -106,7 +106,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void robotPetShouldRefuseToPlayWhenChargeTooLow() {
-		RobotCat chargeTooLow = new RobotCat(shelter, "charge too low", "", 50, 50, 10, 50);
+		RobotCat chargeTooLow = new RobotCat(underTest, "charge too low", "", 50, 50, 10, 50);
 		underTest.admitNewPet(chargeTooLow);
 
 		String chargeTooLowResult = underTest.playWithPet("charge too low");
@@ -116,7 +116,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void petsShouldTakeCareOfSelves() {
-		OrganicCat extraCat = new OrganicCat(shelter, "Extra", DESCRIPTION, 60, 60, 60, 60, 60, 60);
+		OrganicCat extraCat = new OrganicCat(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 60, 60);
 		underTest.admitNewPet(extraCat);
 
 		underTest.putOutFood();
@@ -131,7 +131,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void organicCatShouldUseBathroomOnFloorWhenLitterBoxesAreFull() {
-		OrganicCat extraCat = new OrganicCat(shelter, "Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
+		OrganicCat extraCat = new OrganicCat(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
 		underTest.admitNewPet(extraCat);
 		underTest.petsTakeCareOfSelves();
 
@@ -140,7 +140,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void organicDogShouldUseBathroomInCage() {
-		OrganicDog extraDog = new OrganicDog("Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
+		OrganicDog extraDog = new OrganicDog(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
 		underTest.admitNewPet(extraDog);
 		underTest.petsTakeCareOfSelves();
 
@@ -152,7 +152,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void organicDogShouldUseBathroomOnFloorWhenCageIsDirty() {
-		OrganicDog extraDog = new OrganicDog("Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
+		OrganicDog extraDog = new OrganicDog(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
 		underTest.admitNewDogWithDirtyCage(extraDog, 3);
 		underTest.petsTakeCareOfSelves();
 
@@ -162,7 +162,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void shouldCleanAllCages() {
-		OrganicDog extraDog = new OrganicDog("Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
+		OrganicDog extraDog = new OrganicDog(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
 		underTest.admitNewPet(extraDog);
 		underTest.petsTakeCareOfSelves();
 		underTest.cleanAllCages();
@@ -175,7 +175,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void shouldOilAllRobots() {
-		RobotDog extraRobot = new RobotDog(shelter, "extra", DESCRIPTION);
+		RobotDog extraRobot = new RobotDog(underTest, "extra", DESCRIPTION);
 		underTest.admitNewPet(extraRobot);
 		underTest.oilAllRobots();
 
@@ -189,7 +189,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void shouldChargeAllRobots() {
-		RobotDog extraRobot = new RobotDog(shelter, "extra", DESCRIPTION);
+		RobotDog extraRobot = new RobotDog(underTest, "extra", DESCRIPTION);
 		underTest.admitNewPet(extraRobot);
 		underTest.chargeAllRobots();
 
@@ -203,7 +203,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void shouldWalkAllDogs() {
-		RobotDog extraRobot = new RobotDog(shelter, "extra", DESCRIPTION);
+		RobotDog extraRobot = new RobotDog(underTest, "extra", DESCRIPTION);
 		underTest.admitNewPet(extraRobot);
 		underTest.walkAllDogs();
 

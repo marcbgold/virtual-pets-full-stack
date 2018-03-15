@@ -1,9 +1,13 @@
 package org.wecancodeit.virtualpetsfullstack;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 public class RobotDog extends RobotPet implements Walkable, Cageable {
+
+	@OneToOne(mappedBy = "pet")
+	private Cage cage;
 
 	public RobotDog() {
 	}

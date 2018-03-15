@@ -15,10 +15,13 @@ public class OrganicCatTest {
 	private static final int TIREDNESS = 60;
 	private static final int WASTE = 60;
 	private static final int HEALTH = 60;
+
+	private VirtualPetShelter shelter;
 	private OrganicCat underTest;
 
 	@Before
 	public void setup() {
+		shelter = new VirtualPetShelter(0);
 		underTest = new OrganicCat(shelter, NAME, DESCRIPTION, HUNGER, THIRST, HAPPINESS, TIREDNESS, WASTE, HEALTH);
 	}
 
