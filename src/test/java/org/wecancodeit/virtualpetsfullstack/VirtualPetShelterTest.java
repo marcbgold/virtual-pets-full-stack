@@ -11,25 +11,12 @@ public class VirtualPetShelterTest {
 	private static final String NAME = "Name";
 	private static final String DESCRIPTION = "Description";
 	private VirtualPetShelter underTest;
-	private VirtualPet testPet;
+	private VirtualPet orgDog;
 
 	@Before
 	public void setup() {
 		underTest = new VirtualPetShelter(4);
-		testPet = new OrganicDog(null, NAME, DESCRIPTION);
-		underTest.admitNewPet(testPet);
-	}
-
-	@Test
-	public void shouldAdmitNewPet() {
-		assertThat(underTest.checkIfPetExists(NAME), is(true));
-	}
-
-	@Test
-	public void shouldRemovePetWhenAdopted() {
-		underTest.adoptOutPet(NAME);
-
-		assertThat(underTest.checkIfPetExists(NAME), is(false));
+		orgDog = new OrganicDog(null, NAME, DESCRIPTION);
 	}
 
 	@Test
@@ -55,10 +42,9 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void shouldPlayWithBothOrganicAndRobotPets() {
-		RobotCat extraRobotPet = new RobotCat(underTest, "robot", "");
-		underTest.admitNewPet(extraRobotPet);
-		String organicResult = underTest.playWithPet(NAME);
-		String robotResult = underTest.playWithPet("robot");
+		RobotCat roboCat = new RobotCat(underTest, "robot", "");
+		String organicResult = underTest.playWithPet(orgDog);
+		String robotResult = underTest.playWithPet(roboCat);
 
 		assertThat(organicResult, is("success"));
 		assertThat(robotResult, is("success"));
@@ -66,10 +52,9 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void petShouldRefuseToPlayWhenTooUnhealthy() {
-		OrganicDog tooUnHealthy = new OrganicDog(underTest, "too unhealthy", "", 50, 50, 50, 50, 50, 10);
-		underTest.admitNewPet(tooUnHealthy);
+		OrganicDog tooUnhealthy = new OrganicDog(underTest, "too unhealthy", "", 50, 50, 50, 50, 50, 10);
 
-		String tooSickResult = underTest.playWithPet("too unhealthy");
+		String tooSickResult = underTest.playWithPet(tooUnhealthy);
 
 		assertThat(tooSickResult, is("too unhealthy"));
 	}
@@ -77,9 +62,8 @@ public class VirtualPetShelterTest {
 	@Test
 	public void organicPetShouldRefuseToPlayWhenTooHungry() {
 		OrganicDog tooHungry = new OrganicDog(underTest, "too hungry", "", 100, 50, 50, 50, 50, 50);
-		underTest.admitNewPet(tooHungry);
 
-		String tooHungryResult = underTest.playWithPet("too hungry");
+		String tooHungryResult = underTest.playWithPet(tooHungry);
 
 		assertThat(tooHungryResult, is("too hungry"));
 	}
@@ -87,9 +71,8 @@ public class VirtualPetShelterTest {
 	@Test
 	public void organicPetShouldRefuseToPlayWhenTooTired() {
 		OrganicCat tooTired = new OrganicCat(underTest, "too tired", "", 50, 50, 50, 100, 50, 50);
-		underTest.admitNewPet(tooTired);
 
-		String tooTiredResult = underTest.playWithPet("too tired");
+		String tooTiredResult = underTest.playWithPet(tooTired);
 
 		assertThat(tooTiredResult, is("too tired"));
 	}
@@ -97,9 +80,8 @@ public class VirtualPetShelterTest {
 	@Test
 	public void robotPetShouldRefuseToPlayWhenOilTooLow() {
 		RobotDog oilTooLow = new RobotDog(underTest, "oil too low", "", 10, 50, 50, 50);
-		underTest.admitNewPet(oilTooLow);
 
-		String oilTooLowResult = underTest.playWithPet("oil too low");
+		String oilTooLowResult = underTest.playWithPet(oilTooLow);
 
 		assertThat(oilTooLowResult, is("oil too low"));
 	}
@@ -107,17 +89,15 @@ public class VirtualPetShelterTest {
 	@Test
 	public void robotPetShouldRefuseToPlayWhenChargeTooLow() {
 		RobotCat chargeTooLow = new RobotCat(underTest, "charge too low", "", 50, 50, 10, 50);
-		underTest.admitNewPet(chargeTooLow);
 
-		String chargeTooLowResult = underTest.playWithPet("charge too low");
+		String chargeTooLowResult = underTest.playWithPet(chargeTooLow);
 
 		assertThat(chargeTooLowResult, is("charge too low"));
 	}
 
 	@Test
 	public void petsShouldTakeCareOfSelves() {
-		OrganicCat extraCat = new OrganicCat(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 60, 60);
-		underTest.admitNewPet(extraCat);
+		OrganicCat orgCat = new OrganicCat(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 60, 60);
 
 		underTest.putOutFood();
 		underTest.putOutWater();
