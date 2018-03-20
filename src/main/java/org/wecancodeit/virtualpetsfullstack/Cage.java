@@ -2,23 +2,23 @@ package org.wecancodeit.virtualpetsfullstack;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 @Entity
 public class Cage {
 
 	@Id
-	// @GeneratedValue
+	@GeneratedValue
 	private long id;
 
 	@ManyToOne
 	VirtualPetShelter shelter;
 
+	// @MapsId
 	@OneToOne(fetch = FetchType.LAZY)
-	@MapsId
 	private VirtualPet pet;
 
 	private int wasteLevel;

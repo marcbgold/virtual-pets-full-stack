@@ -24,7 +24,6 @@ public class VirtualPetShelter {
 	private int foodBowlLevel;
 	private int waterBowlLevel;
 	private int litterBoxLevel;
-	// private Map<VirtualPet, Cage> cageList = new HashMap<>();
 
 	private boolean floorIsDirty;
 	private boolean petIsDead;
@@ -59,7 +58,7 @@ public class VirtualPetShelter {
 	public Collection<VirtualPet> getAllOrganicPets() {
 		Collection<VirtualPet> organics = new ArrayList<>();
 
-		for (VirtualPet currentPet : roster.values()) {
+		for (VirtualPet currentPet : roster) {
 			if (currentPet instanceof OrganicPet) {
 				organics.add(currentPet);
 			}
@@ -70,7 +69,7 @@ public class VirtualPetShelter {
 	public Collection<VirtualPet> getAllRobotPets() {
 		Collection<VirtualPet> robots = new ArrayList<>();
 
-		for (VirtualPet currentPet : roster.values()) {
+		for (VirtualPet currentPet : roster) {
 			if (currentPet instanceof RobotPet) {
 				robots.add(currentPet);
 			}
@@ -82,17 +81,17 @@ public class VirtualPetShelter {
 		return cageList;
 	}
 
-	public boolean checkIfPetExists(String name) {
-		return roster.containsKey(name);
-	}
+	// public boolean checkIfPetExists(String name) {
+	// return roster.contains(name);
+	// }
 
-	public VirtualPet getPet(String name) {
-		return roster.get(name);
-	}
+	// public VirtualPet getPet(String name) {
+	// return roster.get(name);
+	// }
 
 	public int getOrganicPetCount() {
 		int count = 0;
-		for (VirtualPet i : roster.values()) {
+		for (VirtualPet i : roster) {
 			if (i instanceof OrganicPet) {
 				count++;
 			}
@@ -102,7 +101,7 @@ public class VirtualPetShelter {
 
 	public int getOrganicCatCount() {
 		int count = 0;
-		for (VirtualPet i : roster.values()) {
+		for (VirtualPet i : roster) {
 			if (i instanceof OrganicCat) {
 				count++;
 			}
@@ -122,25 +121,25 @@ public class VirtualPetShelter {
 		return petIsDead;
 	}
 
-	public void admitNewPet(VirtualPet petInput) {
-		roster.put(petInput.getName(), petInput);
-		if (petInput instanceof Cageable) {
-			cageList.put(petInput, new Cage());
-		}
-	}
+	// public void admitNewPet(VirtualPet petInput) {
+	// roster.put(petInput.getName(), petInput);
+	// if (petInput instanceof Cageable) {
+	// cageList.put(petInput, new Cage());
+	// }
+	// }
 
-	public void admitNewDogWithDirtyCage(VirtualPet petInput, int dirtiness) {
-		roster.put(petInput.getName(), petInput);
-		cageList.put(petInput, new Cage(shelter, pet, dirtiness));
-	}
+	// public void admitNewDogWithDirtyCage(VirtualPet petInput, int dirtiness) {
+	// roster.put(petInput.getName(), petInput);
+	// cageList.put(petInput, new Cage(shelter, pet, dirtiness));
+	// }
 
-	public void adoptOutPet(String name) {
-		VirtualPet pet = roster.get(name);
-		if (cageList.containsKey(pet)) {
-			cageList.remove(pet);
-		}
-		roster.remove(name);
-	}
+	// public void adoptOutPet(String name) {
+	// VirtualPet pet = roster.get(name);
+	// if (cageList.containsKey(pet)) {
+	// cageList.remove(pet);
+	// }
+	// roster.remove(name);
+	// }
 
 	public String putOutFood() {
 		if (foodBowlLevel < getOrganicPetCount() * 2) {
@@ -167,14 +166,14 @@ public class VirtualPetShelter {
 		}
 	}
 
-	public int getCageWasteLevel(VirtualPet input) {
-		return cageList.get(input).getWasteLevel();
-	}
+	// public int getCageWasteLevel(Cageable pet) {
+	// return pet.getCageWasteLevel();
+	// }
 
 	public void cleanAllCages() {
 		// cageList.values().forEach(cage -> cage.cleanCage());
 
-		for (Cage currentCage : cageList.values()) {
+		for (Cage currentCage : cageList) {
 			currentCage.cleanCage();
 		}
 	}
@@ -184,55 +183,30 @@ public class VirtualPetShelter {
 	}
 
 	public void walkAllDogs() {
-		for (VirtualPet currentPet : roster.values()) {
+		for (VirtualPet currentPet : roster) {
 			if (currentPet instanceof Walkable) {
 				((Walkable) currentPet).goForWalk();
 			}
 		}
 	}
 
-	// public void walkAllDogs() {
-	// roster.values().forEach(pet -> {
-	// if (pet instanceof Walkable) {
-	// ((Walkable) pet).goForWalk();
-	// }
-	// });
-	// }
-
 	public void oilAllRobots() {
-		for (VirtualPet currentPet : roster.values()) {
+		for (VirtualPet currentPet : roster) {
 			if (currentPet instanceof RobotPet) {
 				((RobotPet) currentPet).oil();
 			}
 		}
 	}
 
-	// public void oilAllRobots() {
-	// roster.values().forEach(pet -> {
-	// if (pet instanceof RobotPet) {
-	// ((RobotPet) pet).oil();
-	// }
-	// });
-	// }
-
 	public void chargeAllRobots() {
-		for (VirtualPet currentPet : roster.values()) {
+		for (VirtualPet currentPet : roster) {
 			if (currentPet instanceof RobotPet) {
 				((RobotPet) currentPet).recharge();
 			}
 		}
 	}
 
-	// public void chargeAllRobots() {
-	// roster.values().forEach(pet -> {
-	// if (pet instanceof RobotPet) {
-	// ((RobotPet) pet).recharge();
-	// }
-	// });
-	// }
-
-	public String playWithPet(String name) {
-		VirtualPet pet = getPet(name);
+	public String playWithPet(VirtualPet pet) {
 		if (pet.getHealthLevel() <= 20) {
 			return "too unhealthy";
 		}
@@ -277,12 +251,12 @@ public class VirtualPetShelter {
 
 				if (orgPet instanceof OrganicDog) {
 					OrganicDog orgDog = (OrganicDog) orgPet;
-					if (orgDog.getWasteLevel() == 100 && getCageWasteLevel(orgDog) > 2) {
+					if (orgDog.getWasteLevel() == 100 && orgDog.getCageWasteLevel() > 2) {
 						orgDog.useBathroom();
 						floorIsDirty = true;
-					} else if (orgPet.getWasteLevel() >= 70 && getCageWasteLevel(orgDog) < 3) {
+					} else if (orgPet.getWasteLevel() >= 70 && orgDog.getCageWasteLevel() < 3) {
 						orgDog.useBathroom();
-						cageList.get(orgDog).addWaste();
+						orgDog.addWasteToCage();
 					}
 				}
 
@@ -307,7 +281,7 @@ public class VirtualPetShelter {
 	public void checkForHealthProblems() {
 		boolean healthDropped;
 
-		for (VirtualPet currentPet : roster.values()) {
+		for (VirtualPet currentPet : roster) {
 			healthDropped = false;
 
 			if (currentPet.getHealthLevel() <= 30) {
@@ -329,9 +303,12 @@ public class VirtualPetShelter {
 					orgPet.lowerHealthLevel(10);
 					healthDropped = true;
 				}
-				if (orgPet instanceof OrganicDog && getCageWasteLevel(orgPet) >= 2) {
-					orgPet.lowerHealthLevel(10);
-					healthDropped = true;
+				if (orgPet instanceof OrganicDog) {
+					OrganicDog orgDog = (OrganicDog) orgPet;
+					if (orgDog.getCageWasteLevel() >= 2) {
+						orgDog.lowerHealthLevel(10);
+						healthDropped = true;
+					}
 				}
 			} else if (currentPet instanceof RobotPet) {
 				RobotPet roboPet = (RobotPet) currentPet;

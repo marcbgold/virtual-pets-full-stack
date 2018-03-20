@@ -20,6 +20,10 @@ public class RobotDog extends RobotPet implements Walkable, Cageable {
 		super(shelter, name, description, oil, happiness, charge, health);
 	}
 
+	public long getCageId() {
+		return cage.getId();
+	}
+
 	@Override
 	public void goForWalk() {
 		oilLevel -= 10;

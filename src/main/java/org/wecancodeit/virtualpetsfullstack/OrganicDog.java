@@ -1,11 +1,12 @@
 package org.wecancodeit.virtualpetsfullstack;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 public class OrganicDog extends OrganicPet implements Walkable, Cageable {
 
-	// @OneToOne(mappedBy = "pet")
+	@OneToOne(mappedBy = "pet")
 	private Cage cage;
 
 	public OrganicDog() {
@@ -17,6 +18,18 @@ public class OrganicDog extends OrganicPet implements Walkable, Cageable {
 
 	public OrganicDog(VirtualPetShelter shelter, String name, String description, int hunger, int thirst, int happiness, int tiredness, int waste, int health) {
 		super(shelter, name, description, hunger, thirst, happiness, tiredness, waste, health);
+	}
+
+	public long getCageId() {
+		return cage.getId();
+	}
+
+	public int getCageWasteLevel() {
+		return cage.getWasteLevel();
+	}
+
+	public void addWasteToCage() {
+		cage.addWaste();
 	}
 
 	@Override
