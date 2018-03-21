@@ -32,6 +32,8 @@ public class OrganicDog extends OrganicPet implements Walkable, Cageable {
 		cage.addWaste();
 	}
 
+	// TODO add unit test for addWasteToCage
+
 	@Override
 	public void goForWalk() {
 		happinessLevel += 20;
