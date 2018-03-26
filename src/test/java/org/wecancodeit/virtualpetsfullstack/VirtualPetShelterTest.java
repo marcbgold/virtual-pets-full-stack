@@ -3,20 +3,43 @@ package org.wecancodeit.virtualpetsfullstack;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import javax.annotation.Resource;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@DataJpaTest
 public class VirtualPetShelterTest {
+
+	@Resource
+	private TestEntityManager entityManager;
+
+	@Resource
+	private VirtualPetShelterRepository shelterRepo;
+
+	@Resource
+	private VirtualPetRepository petRepo;
+
+	@Resource
+	private CageRepository cageRepo;
 
 	private static final String NAME = "Name";
 	private static final String DESCRIPTION = "Description";
+
 	private VirtualPetShelter underTest;
 	private VirtualPet orgDog;
+	// private VirtualPet orgCat;
 
 	@Before
 	public void setup() {
 		underTest = new VirtualPetShelter(4);
-		orgDog = new OrganicDog(null, NAME, DESCRIPTION);
+		orgDog = new OrganicDog(underTest, NAME, DESCRIPTION);
+		// orgCat = new OrganicCat(underTest, NAME, DESCRIPTION);
 	}
 
 	@Test
@@ -97,22 +120,36 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void petsShouldTakeCareOfSelves() {
-		OrganicCat orgCat = new OrganicCat(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 60, 60);
+		underTest = shelterRepo.save(underTest);
+		long shelterId = underTest.getId();
+		OrganicCat orgCat = new OrganicCat(underTest, NAME, DESCRIPTION, 60, 60, 60, 60, 60, 60);
+		orgCat = petRepo.save(orgCat);
 
+		entityManager.flush();
+		entityManager.clear();
+
+		underTest = shelterRepo.findOne(shelterId);
 		underTest.putOutFood();
 		underTest.putOutWater();
 		underTest.scoopLitterBox();
 		underTest.petsTakeCareOfSelves();
 
-		assertThat(underTest.getFoodBowlLevel(), is(7));
-		assertThat(underTest.getWaterBowlLevel(), is(7));
+		assertThat(underTest.getFoodBowlLevel(), is(1));
+		assertThat(underTest.getWaterBowlLevel(), is(1));
 		assertThat(underTest.getLitterBoxLevel(), is(1));
 	}
 
 	@Test
 	public void organicCatShouldUseBathroomOnFloorWhenLitterBoxesAreFull() {
-		OrganicCat extraCat = new OrganicCat(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
-		underTest.admitNewPet(extraCat);
+		underTest = shelterRepo.save(underTest);
+		long shelterId = underTest.getId();
+		OrganicCat orgCat = new OrganicCat(underTest, NAME, DESCRIPTION, 60, 60, 60, 60, 100, 60);
+		orgCat = petRepo.save(orgCat);
+
+		entityManager.flush();
+		entityManager.clear();
+
+		underTest = shelterRepo.findOne(shelterId);
 		underTest.petsTakeCareOfSelves();
 
 		assertThat(underTest.checkIfFloorIsDirty(), is(true));
@@ -120,14 +157,23 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void organicDogShouldUseBathroomInCage() {
-		OrganicDog extraDog = new OrganicDog(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
-		underTest.admitNewPet(extraDog);
+		underTest = shelterRepo.save(underTest);
+		long shelterId = underTest.getId();
+		OrganicDog extraDog = new OrganicDog(underTest, NAME, DESCRIPTION, 60, 60, 60, 60, 100, 60);
+		extraDog = petRepo.save(extraDog);
+		Cage cage = new Cage(underTest, extraDog);
+		cage = cageRepo.save(cage);
+		long cageId = cage.getId();
+
+		entityManager.flush();
+		entityManager.clear();
+
+		underTest = shelterRepo.findOne(shelterId);
 		underTest.petsTakeCareOfSelves();
 
-		VirtualPet test = underTest.getPet("Extra");
-
-		int result = underTest.getCageWasteLevel(test);
-		assertThat(result, is(1));
+		cage = cageRepo.findOne(cageId);
+		int wasteLevel = cage.getWasteLevel();
+		assertThat(wasteLevel, is(1));
 	}
 
 	@Test

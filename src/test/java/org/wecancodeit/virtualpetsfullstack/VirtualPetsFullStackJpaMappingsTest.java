@@ -88,20 +88,6 @@ public class VirtualPetsFullStackJpaMappingsTest {
 		assertThat(firstCage.getPet(), is(firstDog));
 	}
 
-	// @Test
-	// public void shouldHaveSameIdForPetAndMatchingCage() {
-	// shelter = shelterRepo.save(shelter);
-	// firstDog = petRepo.save(firstDog);
-	// firstCage = cageRepo.save(firstCage);
-	// long petId = firstDog.getId();
-	// long cageId = firstCage.getId();
-	//
-	// entityManager.flush();
-	// entityManager.clear();
-	//
-	// assertThat(petId, is(cageId));
-	// }
-
 	@Test
 	public void shouldEstablishManyCagesToOneShelterRelationship() {
 		shelter = shelterRepo.save(shelter);
