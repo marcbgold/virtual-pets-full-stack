@@ -209,8 +209,6 @@ public class VirtualPetShelterTest {
 		assertThat(wasteLevel, is(1));
 	}
 
-	// TODO finish adding jpa mapping to all shelter tests
-
 	@Test
 	public void organicDogShouldUseBathroomOnFloorWhenCageIsDirty() {
 		underTest = shelterRepo.save(underTest);
