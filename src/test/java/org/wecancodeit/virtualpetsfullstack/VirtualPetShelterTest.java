@@ -33,13 +33,11 @@ public class VirtualPetShelterTest {
 
 	private VirtualPetShelter underTest;
 	private VirtualPet orgDog;
-	// private VirtualPet orgCat;
 
 	@Before
 	public void setup() {
 		underTest = new VirtualPetShelter(4);
 		orgDog = new OrganicDog(underTest, NAME, DESCRIPTION);
-		// orgCat = new OrganicCat(underTest, NAME, DESCRIPTION);
 	}
 
 	@Test
@@ -140,6 +138,25 @@ public class VirtualPetShelterTest {
 	}
 
 	@Test
+	public void petStatUpdatesShouldPersistWhenPetsTakeCareOfSelves() {
+		underTest = shelterRepo.save(underTest);
+		long shelterId = underTest.getId();
+		OrganicCat orgCat = new OrganicCat(underTest, NAME, DESCRIPTION, 60, 60, 60, 60, 60, 60);
+		orgCat = petRepo.save(orgCat);
+		long catId = orgCat.getId();
+
+		entityManager.flush();
+		entityManager.clear();
+
+		underTest = shelterRepo.findOne(shelterId);
+		underTest.putOutFood();
+		underTest.petsTakeCareOfSelves();
+		orgCat = (OrganicCat) petRepo.findOne(catId);
+
+		assertThat(orgCat.getHungerLevel(), is(15));
+	}
+
+	@Test
 	public void organicCatShouldUseBathroomOnFloorWhenLitterBoxesAreFull() {
 		underTest = shelterRepo.save(underTest);
 		long shelterId = underTest.getId();
@@ -176,14 +193,25 @@ public class VirtualPetShelterTest {
 		assertThat(wasteLevel, is(1));
 	}
 
+	// TODO finish adding jpa mapping to all shelter tests
+
 	@Test
 	public void organicDogShouldUseBathroomOnFloorWhenCageIsDirty() {
+		underTest = shelterRepo.save(underTest);
+		long shelterId = underTest.getId();
 		OrganicDog extraDog = new OrganicDog(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
-		underTest.admitNewDogWithDirtyCage(extraDog, 3);
+		extraDog = petRepo.save(extraDog);
+		Cage cage = new Cage(underTest, extraDog, 3);
+		cage = cageRepo.save(cage);
+
+		entityManager.flush();
+		entityManager.clear();
+
+		underTest = shelterRepo.findOne(shelterId);
 		underTest.petsTakeCareOfSelves();
 
-		boolean result = underTest.checkIfFloorIsDirty();
-		assertThat(result, is(true));
+		boolean floorIsDirty = underTest.checkIfFloorIsDirty();
+		assertThat(floorIsDirty, is(true));
 	}
 
 	@Test
