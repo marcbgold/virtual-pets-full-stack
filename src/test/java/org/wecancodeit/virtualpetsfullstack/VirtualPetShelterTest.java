@@ -42,16 +42,32 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void putOutFoodShouldRaiseFoodBowlLevelToOrganicPetCountTimes2() {
+		underTest = shelterRepo.save(underTest);
+		long shelterId = underTest.getId();
+		orgDog = petRepo.save(orgDog);
+
+		entityManager.flush();
+		entityManager.clear();
+
+		underTest = shelterRepo.findOne(shelterId);
 		underTest.putOutFood();
 
-		assertThat(underTest.getFoodBowlLevel(), is(6));
+		assertThat(underTest.getFoodBowlLevel(), is(2));
 	}
 
 	@Test
 	public void putOutWaterShouldRaiseWaterBowlLevelToOrganicPetCountTimes2() {
+		underTest = shelterRepo.save(underTest);
+		long shelterId = underTest.getId();
+		orgDog = petRepo.save(orgDog);
+
+		entityManager.flush();
+		entityManager.clear();
+
+		underTest = shelterRepo.findOne(shelterId);
 		underTest.putOutWater();
 
-		assertThat(underTest.getWaterBowlLevel(), is(6));
+		assertThat(underTest.getWaterBowlLevel(), is(2));
 	}
 
 	@Test
@@ -216,56 +232,81 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void shouldCleanAllCages() {
+		underTest = shelterRepo.save(underTest);
+		long shelterId = underTest.getId();
 		OrganicDog extraDog = new OrganicDog(underTest, "Extra", DESCRIPTION, 60, 60, 60, 60, 100, 60);
-		underTest.admitNewPet(extraDog);
+		extraDog = petRepo.save(extraDog);
+		Cage cage = new Cage(underTest, extraDog);
+		cage = cageRepo.save(cage);
+		long cageId1 = cage.getId();
+
+		entityManager.flush();
+		entityManager.clear();
+
+		underTest = shelterRepo.findOne(shelterId);
 		underTest.petsTakeCareOfSelves();
 		underTest.cleanAllCages();
 
-		VirtualPet test = underTest.getPet("Extra");
-
-		int result = underTest.getCageWasteLevel(test);
+		cage = cageRepo.findOne(cageId1);
+		int result = cage.getWasteLevel();
 		assertThat(result, is(0));
 	}
 
 	@Test
 	public void shouldOilAllRobots() {
-		RobotDog extraRobot = new RobotDog(underTest, "extra", DESCRIPTION);
-		underTest.admitNewPet(extraRobot);
+		underTest = shelterRepo.save(underTest);
+		long shelterId = underTest.getId();
+		RobotDog roboDog = new RobotDog(underTest, NAME, DESCRIPTION);
+		roboDog = petRepo.save(roboDog);
+		long robotId = roboDog.getId();
+
+		entityManager.flush();
+		entityManager.clear();
+
+		underTest = shelterRepo.findOne(shelterId);
 		underTest.oilAllRobots();
 
-		RobotCat glados = (RobotCat) underTest.getPet("GLaDOS");
-		extraRobot = (RobotDog) underTest.getPet("extra");
+		roboDog = (RobotDog) petRepo.findOne(robotId);
 
-		assertThat(glados.getOilLevel(), is(100));
-		assertThat(extraRobot.getOilLevel(), is(100));
-
+		assertThat(roboDog.getOilLevel(), is(100));
 	}
 
 	@Test
 	public void shouldChargeAllRobots() {
-		RobotDog extraRobot = new RobotDog(underTest, "extra", DESCRIPTION);
-		underTest.admitNewPet(extraRobot);
+		underTest = shelterRepo.save(underTest);
+		long shelterId = underTest.getId();
+		RobotDog roboDog = new RobotDog(underTest, NAME, DESCRIPTION);
+		roboDog = petRepo.save(roboDog);
+		long robotId = roboDog.getId();
+
+		entityManager.flush();
+		entityManager.clear();
+
+		underTest = shelterRepo.findOne(shelterId);
 		underTest.chargeAllRobots();
 
-		RobotCat glados = (RobotCat) underTest.getPet("GLaDOS");
-		extraRobot = (RobotDog) underTest.getPet("extra");
+		roboDog = (RobotDog) petRepo.findOne(robotId);
 
-		assertThat(glados.getChargeLevel(), is(100));
-		assertThat(extraRobot.getChargeLevel(), is(100));
-
+		assertThat(roboDog.getChargeLevel(), is(100));
 	}
 
 	@Test
 	public void shouldWalkAllDogs() {
-		RobotDog extraRobot = new RobotDog(underTest, "extra", DESCRIPTION);
-		underTest.admitNewPet(extraRobot);
+		underTest = shelterRepo.save(underTest);
+		long shelterId = underTest.getId();
+		RobotDog roboDog = new RobotDog(underTest, NAME, DESCRIPTION);
+		roboDog = petRepo.save(roboDog);
+		long robotId = roboDog.getId();
+
+		entityManager.flush();
+		entityManager.clear();
+
+		underTest = shelterRepo.findOne(shelterId);
 		underTest.walkAllDogs();
 
-		OrganicDog crono = (OrganicDog) underTest.getPet("Crono");
-		extraRobot = (RobotDog) underTest.getPet("extra");
+		roboDog = (RobotDog) petRepo.findOne(robotId);
 
-		assertThat(crono.getHappinessLevel(), is(90));
-		assertThat(extraRobot.getHappinessLevel(), is(90));
+		assertThat(roboDog.getHappinessLevel(), is(90));
 	}
 
 }

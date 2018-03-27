@@ -17,7 +17,6 @@ public class Cage {
 	@ManyToOne
 	VirtualPetShelter shelter;
 
-	// @MapsId
 	@OneToOne(fetch = FetchType.LAZY)
 	private VirtualPet pet;
 
