@@ -43,6 +43,18 @@ public abstract class OrganicPet extends VirtualPet {
 		return wasteLevel;
 	}
 
+	public String getPlayStatus() {
+		if (healthLevel <= 20) {
+			return "Too Unhealthy";
+		} else if (tirednessLevel >= 80) {
+			return "Too Tired";
+		} else if (hungerLevel >= 80) {
+			return "Too Hungry";
+		} else {
+			return "Play";
+		}
+	}
+
 	public void eat() {
 		hungerLevel -= 50;
 		thirstLevel += 10;

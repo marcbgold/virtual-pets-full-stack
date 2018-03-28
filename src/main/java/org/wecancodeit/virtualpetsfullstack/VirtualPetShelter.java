@@ -172,31 +172,31 @@ public class VirtualPetShelter {
 		}
 	}
 
-	public String playWithPet(VirtualPet pet) {
-		if (pet.getHealthLevel() <= 20) {
-			return "too unhealthy";
-		}
-
-		if (pet instanceof OrganicPet) {
-			OrganicPet orgPet = (OrganicPet) pet;
-			if (orgPet.getTirednessLevel() >= 80) {
-				return "too tired";
-			} else if (orgPet.getHungerLevel() >= 80) {
-				return "too hungry";
-			}
-		}
-
-		if (pet instanceof RobotPet) {
-			RobotPet roboPet = (RobotPet) pet;
-			if (roboPet.getOilLevel() <= 20) {
-				return "oil too low";
-			} else if (roboPet.getChargeLevel() <= 20) {
-				return "charge too low";
-			}
-		}
-		pet.play();
-		return "success";
-	}
+	// public String playWithPet(VirtualPet pet) {
+	// if (pet.getHealthLevel() <= 20) {
+	// return "too unhealthy";
+	// }
+	//
+	// if (pet instanceof OrganicPet) {
+	// OrganicPet orgPet = (OrganicPet) pet;
+	// if (orgPet.getTirednessLevel() >= 80) {
+	// return "too tired";
+	// } else if (orgPet.getHungerLevel() >= 80) {
+	// return "too hungry";
+	// }
+	// }
+	//
+	// if (pet instanceof RobotPet) {
+	// RobotPet roboPet = (RobotPet) pet;
+	// if (roboPet.getOilLevel() <= 20) {
+	// return "oil too low";
+	// } else if (roboPet.getChargeLevel() <= 20) {
+	// return "charge too low";
+	// }
+	// }
+	// pet.play();
+	// return "success";
+	// }
 
 	public void petsTakeCareOfSelves() {
 		for (VirtualPet currentPet : getAllPets()) {

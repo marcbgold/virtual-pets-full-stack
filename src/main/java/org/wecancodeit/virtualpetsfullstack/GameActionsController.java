@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -62,6 +63,14 @@ public class GameActionsController {
 	public String cleanFloor() {
 		VirtualPetShelter shelter = shelterRepo.findOne(1L);
 		shelter.cleanFloor();
+		return "redirect:/end-of-round";
+	}
+
+	@RequestMapping(path = "/play-with-pet/{id}", method = RequestMethod.PUT)
+	public String playWithPet(@PathVariable long petId) {
+		// VirtualPetShelter shelter = shelterRepo.findOne(1L);
+		VirtualPet pet = petRepo.findOne(petId);
+		pet.play();
 		return "redirect:/end-of-round";
 	}
 

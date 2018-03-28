@@ -31,6 +31,18 @@ public abstract class RobotPet extends VirtualPet {
 		return chargeLevel;
 	}
 
+	public String getPlayStatus() {
+		if (healthLevel <= 20) {
+			return "Too Unhealthy";
+		} else if (oilLevel <= 20) {
+			return "Oil Too Low";
+		} else if (chargeLevel <= 20) {
+			return "Charge Too Low";
+		} else {
+			return "Play";
+		}
+	}
+
 	public void oil() {
 		oilLevel = 100;
 		chargeLevel -= 10;
