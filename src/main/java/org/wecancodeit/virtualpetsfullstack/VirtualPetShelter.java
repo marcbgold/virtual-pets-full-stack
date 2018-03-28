@@ -81,14 +81,6 @@ public class VirtualPetShelter {
 		return cageList;
 	}
 
-	// public boolean checkIfPetExists(String name) {
-	// return roster.contains(name);
-	// }
-
-	// public VirtualPet getPet(String name) {
-	// return roster.get(name);
-	// }
-
 	public int getOrganicPetCount() {
 		int count = 0;
 		for (VirtualPet i : roster) {
@@ -121,26 +113,6 @@ public class VirtualPetShelter {
 		return petIsDead;
 	}
 
-	// public void admitNewPet(VirtualPet petInput) {
-	// roster.put(petInput.getName(), petInput);
-	// if (petInput instanceof Cageable) {
-	// cageList.put(petInput, new Cage());
-	// }
-	// }
-
-	// public void admitNewDogWithDirtyCage(VirtualPet petInput, int dirtiness) {
-	// roster.put(petInput.getName(), petInput);
-	// cageList.put(petInput, new Cage(shelter, pet, dirtiness));
-	// }
-
-	// public void adoptOutPet(String name) {
-	// VirtualPet pet = roster.get(name);
-	// if (cageList.containsKey(pet)) {
-	// cageList.remove(pet);
-	// }
-	// roster.remove(name);
-	// }
-
 	public String putOutFood() {
 		if (foodBowlLevel < getOrganicPetCount() * 2) {
 			foodBowlLevel = getOrganicPetCount() * 2;
@@ -157,7 +129,7 @@ public class VirtualPetShelter {
 		return "no need";
 	}
 
-	public String scoopLitterBox() {
+	public String scoopOutLitterBoxes() {
 		if (litterBoxLevel == 0) {
 			return "no need";
 		} else {
@@ -166,13 +138,7 @@ public class VirtualPetShelter {
 		}
 	}
 
-	// public int getCageWasteLevel(Cageable pet) {
-	// return pet.getCageWasteLevel();
-	// }
-
 	public void cleanAllCages() {
-		// cageList.values().forEach(cage -> cage.cleanCage());
-
 		for (Cage currentCage : cageList) {
 			currentCage.cleanCage();
 		}

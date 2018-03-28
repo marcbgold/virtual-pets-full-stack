@@ -34,10 +34,24 @@ public class GameUpdatesController {
 		return "redirect:/end-of-round";
 	}
 
-	@RequestMapping(path = "/put-out-food", method = RequestMethod.PUT)
+	@RequestMapping(path = "/put-out-water", method = RequestMethod.PUT)
 	public String putOutWater(Model model) {
 		VirtualPetShelter shelter = shelterRepo.findOne(1L);
 		shelter.putOutWater();
+		return "redirect:/end-of-round";
+	}
+
+	@RequestMapping(path = "/clean-all-cages", method = RequestMethod.PUT)
+	public String cleanAllCages(Model model) {
+		VirtualPetShelter shelter = shelterRepo.findOne(1L);
+		shelter.cleanAllCages();
+		return "redirect:/end-of-round";
+	}
+
+	@RequestMapping(path = "/scoop-out-litter-boxes", method = RequestMethod.PUT)
+	public String scoopOutLitterBoxes(Model model) {
+		VirtualPetShelter shelter = shelterRepo.findOne(1L);
+		shelter.scoopOutLitterBoxes();
 		return "redirect:/end-of-round";
 	}
 

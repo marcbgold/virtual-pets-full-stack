@@ -72,7 +72,7 @@ public class VirtualPetShelterTest {
 
 	@Test
 	public void scoopLitterBoxShouldLowerLitterBoxLevelToZero() {
-		underTest.scoopLitterBox();
+		underTest.scoopOutLitterBoxes();
 
 		assertThat(underTest.getLitterBoxLevel(), is(0));
 	}
@@ -145,7 +145,7 @@ public class VirtualPetShelterTest {
 		underTest = shelterRepo.findOne(shelterId);
 		underTest.putOutFood();
 		underTest.putOutWater();
-		underTest.scoopLitterBox();
+		underTest.scoopOutLitterBoxes();
 		underTest.petsTakeCareOfSelves();
 
 		assertThat(underTest.getFoodBowlLevel(), is(1));
