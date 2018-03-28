@@ -58,6 +58,13 @@ public class GameUpdatesController {
 		return "redirect:/end-of-round";
 	}
 
+	@RequestMapping(path = "/clean-floor", method = RequestMethod.PUT)
+	public String cleanFloor(Model model) {
+		VirtualPetShelter shelter = shelterRepo.findOne(1L);
+		shelter.cleanFloor();
+		return "redirect:/end-of-round";
+	}
+
 	@RequestMapping(path = "/walk-all-dogs", method = RequestMethod.PUT)
 	public String walkAllDogs(Model model) {
 		VirtualPetShelter shelter = shelterRepo.findOne(1L);
@@ -78,4 +85,5 @@ public class GameUpdatesController {
 		shelter.chargeAllRobots();
 		return "redirect:/end-of-round";
 	}
+
 }
