@@ -22,6 +22,7 @@ public class RosterManagementController {
 	@RequestMapping(path = "/admit-new-pet/{name}/{description}/{type}", method = RequestMethod.POST)
 	public String admitNewPet(@PathVariable String name, @PathVariable String description, @PathVariable String type) {
 		VirtualPetShelter shelter = shelterRepo.findOne(1L);
+
 		switch (type) {
 		case "organic-dog":
 			VirtualPet orgDog = petRepo.save(new OrganicDog(shelter, name, description));
@@ -42,4 +43,17 @@ public class RosterManagementController {
 		return "redirect:/end-of-round";
 	}
 
+	@RequestMapping(path = "/adopt-out-pet/{id}", method = RequestMethod.DELETE)
+	public String adoptOutPet(@PathVariable long id) {
+		VirtualPet pet = petRepo.findOne(id);
+
+		if (pet instanceof Cageable) {
+			Cageable cagedPet = (Cageable) pet;
+			long cageId = cagedPet.getCageId();
+			cageRepo.delete(cageId);
+		}
+
+		petRepo.delete(id);
+		return "redirect:/end-of-round";
+	}
 }
