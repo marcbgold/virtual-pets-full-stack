@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 @Entity
 public abstract class OrganicPet extends VirtualPet {
 
+	protected String type = "Organic";
+
 	protected int hungerLevel;
 	protected int thirstLevel;
 	protected int tirednessLevel;
@@ -19,6 +21,10 @@ public abstract class OrganicPet extends VirtualPet {
 		thirstLevel = thirst;
 		tirednessLevel = tiredness;
 		wasteLevel = waste;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	public int getHungerLevel() {

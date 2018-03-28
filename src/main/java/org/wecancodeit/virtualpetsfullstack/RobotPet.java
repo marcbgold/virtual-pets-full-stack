@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 @Entity
 public abstract class RobotPet extends VirtualPet {
 
+	protected String type = "Robot";
+
 	protected int oilLevel;
 	protected int chargeLevel;
 
@@ -15,6 +17,10 @@ public abstract class RobotPet extends VirtualPet {
 		super(shelter, name, description, happiness, health);
 		oilLevel = oil;
 		chargeLevel = charge;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	public int getOilLevel() {

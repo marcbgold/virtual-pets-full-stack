@@ -6,10 +6,13 @@ import javax.persistence.OneToOne;
 @Entity
 public class OrganicDog extends OrganicPet implements Walkable, Cageable {
 
+	private String species = "Dog";
+
 	@OneToOne(mappedBy = "pet")
 	private Cage cage;
 
-	public OrganicDog() {
+	@SuppressWarnings("unused")
+	private OrganicDog() {
 	}
 
 	public OrganicDog(VirtualPetShelter shelter, String name, String description) {
@@ -18,6 +21,10 @@ public class OrganicDog extends OrganicPet implements Walkable, Cageable {
 
 	public OrganicDog(VirtualPetShelter shelter, String name, String description, int hunger, int thirst, int happiness, int tiredness, int waste, int health) {
 		super(shelter, name, description, hunger, thirst, happiness, tiredness, waste, health);
+	}
+
+	public String getSpecies() {
+		return species;
 	}
 
 	public long getCageId() {

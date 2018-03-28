@@ -5,7 +5,10 @@ import javax.persistence.Entity;
 @Entity
 public class RobotCat extends RobotPet {
 
-	public RobotCat() {
+	private String species = "Cat";
+
+	@SuppressWarnings("unused")
+	private RobotCat() {
 	}
 
 	public RobotCat(VirtualPetShelter shelter, String name, String description) {
@@ -14,6 +17,10 @@ public class RobotCat extends RobotPet {
 
 	public RobotCat(VirtualPetShelter shelter, String name, String description, int oil, int happiness, int charge, int health) {
 		super(shelter, name, description, oil, happiness, charge, health);
+	}
+
+	public String getSpecies() {
+		return species;
 	}
 
 	@Override
