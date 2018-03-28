@@ -24,6 +24,9 @@ public class GameUpdatesController {
 		VirtualPetShelter shelter = shelterRepo.findOne(1L);
 		shelter.petsTakeCareOfSelves();
 		shelter.checkForHealthProblems();
+		shelter = shelterRepo.save(shelter);
+		model.addAttribute("shelter", shelter);
+		model.addAttribute("roster", petRepo.findAll());
 		return "refresh-roster";
 	}
 
@@ -55,4 +58,24 @@ public class GameUpdatesController {
 		return "redirect:/end-of-round";
 	}
 
+	@RequestMapping(path = "/walk-all-dogs", method = RequestMethod.PUT)
+	public String walkAllDogs(Model model) {
+		VirtualPetShelter shelter = shelterRepo.findOne(1L);
+		shelter.walkAllDogs();
+		return "redirect:/end-of-round";
+	}
+
+	@RequestMapping(path = "/oil-all-robots", method = RequestMethod.PUT)
+	public String oilAllRobots(Model model) {
+		VirtualPetShelter shelter = shelterRepo.findOne(1L);
+		shelter.oilAllRobots();
+		return "redirect:/end-of-round";
+	}
+
+	@RequestMapping(path = "/charge-all-robots", method = RequestMethod.PUT)
+	public String chargeAllRobots(Model model) {
+		VirtualPetShelter shelter = shelterRepo.findOne(1L);
+		shelter.chargeAllRobots();
+		return "redirect:/end-of-round";
+	}
 }
